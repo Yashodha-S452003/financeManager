@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div th:replace="navbar :: navbar"></div>
+
+<div class="container">
+
+    <!-- ================= CARDS ================= -->
+    <div class="card-container">
+
+        <div class="card income">
+            <h2>Total Income</h2>
+            ₹ <span th:text="${totalIncome}"></span>
+        </div>
+
+        <div class="card expense">
+            <h2>Total Expense</h2>
+            ₹ <span th:text="${totalExpense}"></span>
+        </div>
+
+        <div class="card balance">
+            <h2>Balance</h2>
+            ₹ <span th:text="${balance}"></span>
+        </div>
+
+    </div>
+
+
+    <!-- ================= DASHBOARD LAYOUT ================= -->
+    <div class="dashboard-layout">
+
+        <!-- LEFT SIDE -->
+        <div class="left-panel">
+
+           
+
+            <!-- CATEGORY SECTION -->
+            <div class="category-section">
+                <h3>Expense Categories</h3>
+
+                <div class="category-container">
+
+                    <!-- CATEGORY LIST -->
+                    <div class="category-list">
+                        <div class="category-item" th:each="entry : ${categoryData}">
+                            <span class="dot"></span>
+                            <span class="name" th:text="${entry.key}"></span>
+                            <span class="value">₹ <span th:text="${entry.value}"></span></span>
+                        </div>
+                    </div>
+
+                    <!-- PIE CHART -->
+                    <div class="category-chart">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE (RECENT EXPENSES) -->
+        <div class="right-panel">
+            <h3>Recent Expenses</h3>
+
+            <ul>
+                <li th:each="e : ${expenses}">
+                    <strong>₹ <span th:text="${e.amount}"></span></strong><br>
+                    <small th:text="${e.category}"></small>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- ================= CATEGORY CHART ================= -->
+<script th:inline="javascript">
+
+const categoryData = /*[[${categoryData}]]*/ {};
+
+const labels = Object.keys(categoryData);
+const values = Object.values(categoryData);
+
+new Chart(document.getElementById('categoryChart'), {
+    type: 'pie',
+    data: {
+        labels: labels,
+        datasets: [{
+            data: values,
+            backgroundColor: [
+                '#4CAF50',
+                '#FF6384',
+                '#36A2EB',
+                '#FFCE56',
+                '#9C27B0',
+                '#00BCD4'
+            ]
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+
+</script>
+
+</body>
+</html>

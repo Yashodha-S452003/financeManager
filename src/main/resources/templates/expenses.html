@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div th:replace="navbar :: navbar"></div>
+
+
+<div class="container">
+
+    <div class="page-wrapper">
+
+        <h2 class="page-title">Expenses</h2>
+		<div class="filter-box">
+
+    <form th:action="@{/expenses}" method="get">
+
+        <input type="text" name="category" placeholder="Filter by category (e.g. Food)">
+
+        <button type="submit">Filter</button>
+
+        <a href="/expenses" class="reset-btn">Reset</a>
+
+    </form>
+
+</div>
+        <div class="table-card">
+
+            <div class="table-header">
+            <span>Date</span>
+                <span>Amount</span>
+                <span>Category</span>
+                <span>Action</span>
+            </div>
+
+            <div class="table-row" th:each="e : ${expenses}">
+            <span><small th:text="${e.date}"></small></span>	
+                <span>₹ <span th:text="${e.amount}"></span></span>
+                <span th:text="${e.category}"></span>
+                
+
+                <form th:action="@{/deleteExpense/{id}(id=${e.id})}" method="post">
+                    <button class="delete-btn">Delete</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

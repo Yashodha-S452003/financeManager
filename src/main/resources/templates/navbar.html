@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="navbar">
+    <nav class="navbar">
+
+        <!-- Logo -->
+        <div class="logo">
+            💰 <span>Finance Manager</span>
+        </div>
+
+        <!-- Links -->
+        <div class="nav-links">
+            <a th:href="@{/dashboard}">Dashboard</a>
+            <a th:href="@{/add-expense}">Add Expense</a>
+            <a th:href="@{/add-income}">Add Income</a>
+            <a th:href="@{/expenses}">Expenses</a>
+            <a th:href="@{/income}">Income</a>
+        </div>
+        
+         <!-- RIGHT (PROFILE 🔥) -->
+    <div class="profile">
+        <img src="/images/user.png" alt="profile">
+        <div class="profile-info">
+            <span th:text="${session.loggedUser.name}">User Name</span>
+            <small>User account</small>
+        </div>
+    </div>
+    
+     <a href="/logout" class="logout-btn">Logout</a>
+
+    </nav>
+</div>
+
+</body>
+</html>

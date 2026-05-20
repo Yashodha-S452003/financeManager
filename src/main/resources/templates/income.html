@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div th:replace="navbar :: navbar"></div>
+
+<div class="container">
+
+    <div class="page-wrapper">
+
+        <h2 class="page-title">Income</h2>
+
+        <div class="table-card">
+
+            <div class="table-header">
+                        <span>Date</span>
+                <span>Amount</span>
+                <span>Source</span>
+                <span>Action</span>
+            </div>
+
+            <div class="table-row" th:each="i : ${incomeList}">
+            	
+            	<span><small th:text="${i.date}"></small></span>	
+                <span>₹ <span th:text="${i.amount}"></span></span>
+                <span th:text="${i.source}"></span>
+
+                <form th:action="@{/deleteIncome/{id}(id=${i.id})}" method="post">
+                    <button class="delete-btn">Delete</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

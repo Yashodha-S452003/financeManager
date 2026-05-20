@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div th:replace="navbar :: navbar"></div>
+
+<div class="form-container">
+    <div class="form-card">
+
+        <h2>Add Expense</h2>
+
+        <form th:action="@{/addExpense}" th:object="${expense}" method="post">
+        
+        	<input type="date" name="date" required>
+
+            <input type="number" th:field="*{amount}" placeholder="Enter amount">
+
+            <input type="text" th:field="*{category}" placeholder="Category">
+
+            <input type="text" th:field="*{description}" placeholder="Description">
+
+            <button type="submit">Add Expense</button>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
